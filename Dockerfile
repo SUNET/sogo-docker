@@ -10,6 +10,7 @@ RUN sed -i \
 		-e 's/^#\(Include .*httpd-ssl.conf\)/\1/' \
 		-e 's/^#\(LoadModule .*mod_ssl.so\)/\1/' \
 		-e 's/^#\(LoadModule .*mod_socache_shmcb.so\)/\1/' \
+		-e 's/^#\(LoadModule .*mod_proxy.so\)/\1/' \
 		conf/httpd.conf
 COPY ./httpd-sogo.conf conf/extra/httpd-sogo.conf
 RUN echo 'Include conf/extra/httpd-sogo.conf' >> conf/httpd.conf
