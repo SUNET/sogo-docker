@@ -6,5 +6,10 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
   sogo \
   sogo-activesync \
   vim
+RUN sed -i \
+		-e 's/^#\(Include .*httpd-ssl.conf\)/\1/' \
+		-e 's/^#\(LoadModule .*mod_ssl.so\)/\1/' \
+		-e 's/^#\(LoadModule .*mod_socache_shmcb.so\)/\1/' \
+		conf/httpd.conf
 CMD [ "bash", "-c", "/etc/init.d/sogo start; httpd-foreground"]
 EXPOSE 80/tcp 443/tcp
