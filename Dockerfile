@@ -7,6 +7,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
   sogo-activesync \
   vim
 RUN ln -sf /dev/stdout /var/log/sogo/sogo.log
+RUN chown www-data:sogo /var/log/sogo/sogo.log
 RUN sed -i \
 		-e 's/^#\(Include .*httpd-ssl.conf\)/\1/' \
 		-e 's/^#\(LoadModule .*mod_ssl.so\)/\1/' \
