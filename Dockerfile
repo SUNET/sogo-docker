@@ -1,11 +1,19 @@
 FROM httpd:bookworm
 
 ARG DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update && apt-get upgrade -y && apt-get install -y \
-  sogo \
-  sogo-activesync \
+RUN apt-get update && apt-get upgrade && apt-get install \
+  curl \
+  gpg \
   vim
+ARG REPO_URL=http://packages.sogo.nu/nightly/5/debian/
+ARG GPG_FILE=/usr/share/keyrings/sogo-release-keyring.gpg
+ARG GPG_URL=https://keys.openpgp.org/vks/v1/by-fingerprint/74FFC6D72B925A34B5D356BDF8A27B36A6E2EAE9
+RUN curl -s ${GPG_URL} -o ${GPG_FILE}
+RUN echo "Types: deb\nURIs: ${REPO_URL}\nSuites: ./\nSigned-By: ${GPG_FILE}\n" \
+   > /etc/apt/sources.list.d/sogo.list
+RUN apt-get update && apt-get install -y \
+  sogo \
+  sogo-activesync
 RUN sed -i \
 		-e 's/^#\(Include .*httpd-ssl.conf\)/\1/' \
 		-e 's/^#\(LoadModule .*mod_ssl.so\)/\1/' \
