@@ -1,7 +1,7 @@
 FROM httpd:bookworm
 
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get upgrade && apt-get install \
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
   curl \
   gpg \
   vim
