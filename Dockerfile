@@ -17,5 +17,5 @@ RUN sed -i \
 		conf/httpd.conf
 COPY ./httpd-sogo.conf conf/extra/httpd-sogo.conf
 RUN echo 'Include conf/extra/httpd-sogo.conf' >> conf/httpd.conf
-CMD [ "bash", "-c", "chown www-data:sogo /dev/stdout; /etc/init.d/sogo start; httpd-foreground"]
+CMD [ "bash", "-c", "httpd-foreground; chown www-data:sogo /dev/stdout; /etc/init.d/sogo start"]
 EXPOSE 80/tcp 443/tcp
