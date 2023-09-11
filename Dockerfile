@@ -12,8 +12,7 @@ RUN curl -s ${GPG_URL} | gpg --dearmor > ${GPG_FILE}
 RUN echo "deb [signed-by=${GPG_FILE}] http://packages.sogo.nu/nightly/5/debian/ buster buster\n" \
    > /etc/apt/sources.list.d/sogo.list
 RUN apt-get update && apt-get install -y \
-  sogo \
-  sogo-activesync
+  sogo
 RUN sed -i \
 		-e 's/^#\(Include .*httpd-ssl.conf\)/\1/' \
 		-e 's/^#\(LoadModule .*mod_ssl.so\)/\1/' \
