@@ -9,10 +9,11 @@ ARG REPO_URL=http://packages.sogo.nu/nightly/5/debian/
 ARG GPG_FILE=/usr/share/keyrings/sogo-release-keyring.gpg
 ARG GPG_URL=https://keys.openpgp.org/vks/v1/by-fingerprint/74FFC6D72B925A34B5D356BDF8A27B36A6E2EAE9
 RUN curl -s ${GPG_URL} | gpg --dearmor > ${GPG_FILE}
-RUN echo "deb [signed-by=${GPG_FILE}] http://packages.sogo.nu/nightly/5/debian/ buster buster\n" \
+RUN echo "deb [signed-by=${GPG_FILE}] http://packages.sogo.nu/nightly/5/debian/ bookworm bookworm\n" \
    > /etc/apt/sources.list.d/sogo.list
 RUN apt-get update && apt-get install -y \
-  sogo
+  sogo \
+  sogo-activesync
 RUN sed -i \
 		-e 's/^#\(Include .*httpd-ssl.conf\)/\1/' \
 		-e 's/^#\(LoadModule .*mod_ssl.so\)/\1/' \
