@@ -9,8 +9,8 @@ ARG REPO_URL=http://packages.sogo.nu/nightly/5/debian/
 ARG GPG_FILE=/usr/share/keyrings/sogo-release-keyring.gpg
 ARG GPG_URL=https://keys.openpgp.org/vks/v1/by-fingerprint/74FFC6D72B925A34B5D356BDF8A27B36A6E2EAE9
 RUN curl -s ${GPG_URL} | gpg --dearmor > ${GPG_FILE}
-RUN echo "Types: deb\nURIs: ${REPO_URL}\nSuites: ./\nSigned-By: ${GPG_FILE}\n" \
-   > /etc/apt/sources.list.d/sogo.list
+RUN echo "Types: deb\nURIs: ${REPO_URL}\nSuites: bookworm\nSigned-By: ${GPG_FILE}\n" \
+   > /etc/apt/sources.list.d/sogo.sources
 RUN apt-get update && apt-get install -y \
   sogo \
   sogo-activesync
