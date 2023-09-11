@@ -6,7 +6,6 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
   sogo \
   sogo-activesync \
   vim
-RUN ln -sf /dev/stdout /var/log/sogo/sogo.log
 RUN sed -i \
 		-e 's/^#\(Include .*httpd-ssl.conf\)/\1/' \
 		-e 's/^#\(LoadModule .*mod_ssl.so\)/\1/' \
@@ -17,5 +16,5 @@ RUN sed -i \
 		conf/httpd.conf
 COPY ./httpd-sogo.conf conf/extra/httpd-sogo.conf
 RUN echo 'Include conf/extra/httpd-sogo.conf' >> conf/httpd.conf
-CMD [ "bash", "-c", "httpd-foreground; chown www-data:sogo /dev/stdout; /etc/init.d/sogo start"]
+CMD [ "bash", "-c", "/etc/init.d/sogo start; httpd-foreground;"]
 EXPOSE 80/tcp 443/tcp
